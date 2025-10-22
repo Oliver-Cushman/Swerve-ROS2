@@ -1,0 +1,16 @@
+float32 left_x
+float32 left_y
+float32 right_x
+float32 right_y
+float32 left_trigger
+float32 right_trigger
+bool btn_north
+bool btn_south
+bool btn_east
+bool btn_west
+bool dpad_up
+bool dpad_down
+bool dpad_left
+bool dpad_right
+bool left_bumper
+bool right_bumper
