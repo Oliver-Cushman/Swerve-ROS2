@@ -15,8 +15,10 @@ pkg_check_modules(SDL2 REQUIRED sdl2)
 include_directories(${SDL2_INCLUDE_DIRS})
 
 add_executable(input_node src/input_node.cpp)
+add_executable(central_node src/central_node.cpp)
 
 target_link_libraries(input_node PUBLIC ${swerve_interfaces_TARGETS} ${SDL2_LIBRARIES} rclcpp::rclcpp)
+target_link_libraries(central_node PUBLIC ${swerve_interfaces_TARGETS} ${SDL2_LIBRARIES} rclcpp::rclcpp)
 
 install(
   DIRECTORY launch/
@@ -25,6 +27,7 @@ install(
 
 install(TARGETS
     input_node
+    central_node
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

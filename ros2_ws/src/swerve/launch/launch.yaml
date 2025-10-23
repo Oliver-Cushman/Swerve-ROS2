@@ -10,3 +10,7 @@ launch:
       pkg: "swerve"
       exec: "input_node"
       name: "input"
+  - node:
+      pkg: "swerve"
+      exec: "central_node"
+      name: "central"
