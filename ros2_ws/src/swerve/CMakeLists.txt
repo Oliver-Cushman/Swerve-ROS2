@@ -18,6 +18,11 @@ add_executable(input_node src/input_node.cpp)
 
 target_link_libraries(input_node PUBLIC ${swerve_interfaces_TARGETS} ${SDL2_LIBRARIES} rclcpp::rclcpp)
 
+install(
+  DIRECTORY launch/
+  DESTINATION share/${PROJECT_NAME}
+)
+
 install(TARGETS
     input_node
   DESTINATION lib/${PROJECT_NAME})

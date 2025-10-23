@@ -1,0 +1,12 @@
+%YAML 1.2
+---
+launch:
+  - include:
+      file: "$(find-pkg-share foxglove_bridge)/launch/foxglove_bridge_launch.xml"
+      arg:
+        - name: "port"
+          value: "8765"
+  - node:
+      pkg: "swerve"
+      exec: "input_node"
+      name: "input"
