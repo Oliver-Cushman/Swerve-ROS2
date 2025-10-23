@@ -29,7 +29,6 @@ private:
     {
         auto gamepad_state = this->get_gamepad_state();
         this->input_publisher->publish(gamepad_state);
-        RCLCPP_INFO(this->get_logger(), "%.4f", gamepad_state.left_x);
     }
 
     SDL_GameController *get_gamepad()
@@ -47,6 +46,7 @@ private:
                 if (attempt)
                     return attempt;
             }
+            RCLCPP_WARN(this->get_logger(), "Waiting for a controller...");
             std::this_thread::sleep_for(1s);
         }
         return attempt;
