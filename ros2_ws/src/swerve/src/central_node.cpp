@@ -2,7 +2,6 @@
 #include "swerve_interfaces/msg/chassis_speeds.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include <cmath>
-#include "util/constants.h"
 
 class CentralNode : public rclcpp::Node
 {
@@ -18,9 +17,9 @@ private:
     {
         auto desired_speeds = swerve_interfaces::msg::ChassisSpeeds();
         // Switch x and y, field coordinate system
-        desired_speeds.x = gamepad_state.left_y * constants::Swerve::MAX_LINEAR_VELOCITY;
-        desired_speeds.y = gamepad_state.left_x * constants::Swerve::MAX_LINEAR_VELOCITY;
-        desired_speeds.theta = gamepad_state.right_x * constants::Swerve::MAX_ANGULAR_VELOCITY;
+        desired_speeds.x = gamepad_state.left_y;
+        desired_speeds.y = gamepad_state.left_x;
+        desired_speeds.theta = gamepad_state.right_x;
         this->desired_speeds_publisher->publish(desired_speeds);
     }
 

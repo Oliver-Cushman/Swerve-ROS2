@@ -90,7 +90,6 @@ private:
     rclcpp::TimerBase::SharedPtr timer;
     rclcpp::Publisher<swerve_interfaces::msg::GamepadState>::SharedPtr input_publisher;
     SDL_GameController *gamepad;
-
 };
 
 int main(int argc, char *argv[])
