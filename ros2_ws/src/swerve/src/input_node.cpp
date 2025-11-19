@@ -2,6 +2,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "SDL2/SDL.h"
 #include <thread>
+#include "util/constants.h"
 
 using namespace std::chrono_literals;
 
@@ -33,8 +34,8 @@ private:
 
     SDL_GameController *get_gamepad()
     {
-        SDL_GameController *attempt = nullptr;
-        while (!attempt)
+        SDL_GameController *controller = nullptr;
+        for (int attempt = 0; attempt < constants::Input::MAX_ATTEMPTS; attempt++)
         {
             SDL_GameControllerUpdate();
             SDL_JoystickUpdate();
@@ -42,19 +43,19 @@ private:
             for (int i = 0; i < SDL_NumJoysticks(); i++)
             {
                 if (SDL_IsGameController(i))
-                    attempt = SDL_GameControllerOpen(i);
-                if (attempt)
-                    return attempt;
+                    controller = SDL_GameControllerOpen(i);
+                if (controller)
+                    return controller;
             }
             RCLCPP_WARN(this->get_logger(), "Waiting for a controller...");
             std::this_thread::sleep_for(1s);
         }
-        return attempt;
+        return controller;
     }
 
     float get_axis(SDL_GameControllerAxis axis)
     {
-        return (float)SDL_GameControllerGetAxis(this->gamepad, axis) / this->GAMEPAD_AXIS_MAX;
+        return (float)SDL_GameControllerGetAxis(this->gamepad, axis) / constants::Input::GAMEPAD_AXIS_MAX;
     }
 
     bool get_btn(SDL_GameControllerButton btn)
@@ -90,7 +91,6 @@ private:
     rclcpp::Publisher<swerve_interfaces::msg::GamepadState>::SharedPtr input_publisher;
     SDL_GameController *gamepad;
 
-    const float GAMEPAD_AXIS_MAX = 32768.0;
 };
 
 int main(int argc, char *argv[])
