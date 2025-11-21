@@ -8,13 +8,9 @@ launch:
           value: "8765"
   - node:
       pkg: "swerve"
-      exec: "input_node"
-      name: "input"
-  - node:
-      pkg: "swerve"
-      exec: "central_node"
+      exec: "CentralNode"
       name: "central"
   - node:
       pkg: "swerve"
-      exec: "kinematics_node"
+      exec: "KinematicsNode"
       name: "kinematics"

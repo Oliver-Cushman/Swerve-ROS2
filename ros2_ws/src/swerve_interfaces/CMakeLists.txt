@@ -13,6 +13,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   # msg
   "msg/GamepadState.msg"
   "msg/ChassisSpeeds.msg"
+  "msg/SwerveModuleState.msg"
+  "msg/SwerveModuleStateArr.msg"
   # srv
   # action
 )

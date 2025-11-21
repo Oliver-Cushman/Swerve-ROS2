@@ -24,6 +24,7 @@ private:
         desired_speeds.x = gamepad_state.left_y;
         desired_speeds.y = gamepad_state.left_x;
         desired_speeds.theta = gamepad_state.right_x;
+        desired_speeds.field_relative = gamepad_state.btn_north;
         this->desired_speeds_publisher->publish(desired_speeds);
     }
 

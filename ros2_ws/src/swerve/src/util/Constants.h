@@ -1,6 +1,7 @@
-#ifndef constants
-#define constants
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 #include <cmath>
+#include "math/GeometryUtil.h"
 
 namespace constants
 {
@@ -13,6 +14,13 @@ namespace constants
         static constexpr float WHEEL_BASE = 0.5842f;
         // same as WHEEL_BASE for square swerve
         static constexpr float TRACK_WIDTH = WHEEL_BASE;
+
+        static constexpr std::array<geometry_util::Translation2d, 4> SWERVE_MOD_TRANSLATIONS = {
+            geometry_util::Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2), 
+            geometry_util::Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2),
+            geometry_util::Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2),
+            geometry_util::Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2)
+        };
     };
 
     struct Input
