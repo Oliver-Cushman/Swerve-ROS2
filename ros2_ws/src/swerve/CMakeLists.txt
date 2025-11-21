@@ -5,20 +5,37 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
+# Dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(swerve_interfaces REQUIRED)
-
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(PkgConfig REQUIRED)
+
 pkg_check_modules(SDL2 REQUIRED sdl2)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(input_node src/input_node.cpp)
-add_executable(central_node src/central_node.cpp)
+# Nodes
+add_executable(InputNode src/InputNode.cpp)
+add_executable(CentralNode src/CentralNode.cpp)
+add_executable(KinematicsNode src/KinematicsNode.cpp)
 
-target_link_libraries(input_node PUBLIC ${swerve_interfaces_TARGETS} ${SDL2_LIBRARIES} rclcpp::rclcpp)
-target_link_libraries(central_node PUBLIC ${swerve_interfaces_TARGETS} ${SDL2_LIBRARIES} rclcpp::rclcpp)
+# Link targets
+target_link_libraries(InputNode
+  PUBLIC ${swerve_interfaces_TARGETS} ${SDL2_LIBRARIES} rclcpp::rclcpp
+)
+
+target_link_libraries(CentralNode
+  PUBLIC ${swerve_interfaces_TARGETS} rclcpp::rclcpp
+)
+
+target_link_libraries(KinematicsNode
+  PUBLIC
+    ${swerve_interfaces_TARGETS}
+    rclcpp::rclcpp
+    sensor_msgs::sensor_msgs_library
+)
 
 install(
   DIRECTORY launch/
@@ -26,8 +43,10 @@ install(
 )
 
 install(TARGETS
-    input_node
-    central_node
-  DESTINATION lib/${PROJECT_NAME})
+  InputNode
+  CentralNode
+  KinematicsNode
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 ament_package()

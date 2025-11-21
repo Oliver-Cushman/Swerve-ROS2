@@ -14,3 +14,7 @@ launch:
       pkg: "swerve"
       exec: "central_node"
       name: "central"
+  - node:
+      pkg: "swerve"
+      exec: "kinematics_node"
+      name: "kinematics"

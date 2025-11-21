@@ -1,6 +1,7 @@
 #include "swerve_interfaces/msg/gamepad_state.hpp"
 #include "swerve_interfaces/msg/chassis_speeds.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include <memory>
 #include <cmath>
 
 class CentralNode : public rclcpp::Node
@@ -8,7 +9,10 @@ class CentralNode : public rclcpp::Node
 public:
     CentralNode() : Node("central")
     {
-        this->input_subscriber = this->create_subscription<swerve_interfaces::msg::GamepadState>("teleop/gamepad_input", 10, std::bind(&CentralNode::input_callback, this, std::placeholders::_1));
+        this->input_subscriber = this->create_subscription<swerve_interfaces::msg::GamepadState>(
+            "teleop/gamepad_input",
+            10,
+            std::bind(&CentralNode::input_callback, this, std::placeholders::_1));
         this->desired_speeds_publisher = this->create_publisher<swerve_interfaces::msg::ChassisSpeeds>("swerve/desired_speeds", 10);
     }
 
