@@ -15,7 +15,7 @@ namespace constants
         // same as WHEEL_BASE for square swerve
         static constexpr float TRACK_WIDTH = WHEEL_BASE;
 
-        static constexpr std::array<geometry_util::Translation2d, 4> SWERVE_MOD_TRANSLATIONS = {
+        static inline const std::array<geometry_util::Translation2d, 4> SWERVE_MOD_TRANSLATIONS = {
             geometry_util::Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2), 
             geometry_util::Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2),
             geometry_util::Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2),

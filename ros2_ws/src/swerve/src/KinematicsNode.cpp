@@ -7,6 +7,7 @@
 #include "sensor_msgs/msg/imu.hpp"
 #include "geometry_msgs/msg/quaternion.hpp"
 #include <memory>
+#include <cmath>
 
 using namespace geometry_util;
 using namespace swerve_interfaces::msg;
@@ -14,7 +15,7 @@ using namespace swerve_interfaces::msg;
 class KinematicsNode : public rclcpp::Node
 {
 public:
-    KinematicsNode() : Node("kinematics"), swerve_module_states(4)
+    KinematicsNode() : Node("kinematics"), desired_module_states(4)
     {
         this->chassis_speeds_subscriber = this->create_subscription<ChassisSpeeds>(
             "swerve/desired_speeds",
@@ -27,7 +28,7 @@ public:
         this->module_states_publisher = this->create_publisher<SwerveModuleStateArr>(
             "swerve/desired_module_states",
             10);
-        this->orientation = geometry_msgs::msg::Quaternion();
+        this->yaw = Rotation2d();
     }
 
 private:
@@ -36,8 +37,12 @@ private:
         float vx = desired_speeds.x * constants::Swerve::MAX_LINEAR_VELOCITY;
         float vy = desired_speeds.y * constants::Swerve::MAX_LINEAR_VELOCITY;
         float w = desired_speeds.theta * constants::Swerve::MAX_ANGULAR_VELOCITY;
+        bool field_relative = desired_speeds.field_relative;
 
         Vector2d lv = Vector2d(vx, vy);
+        if (field_relative) {
+            lv = lv.rotate_by(this->yaw * -1);
+        }
         Vector3d w_vector = Vector3d(0, 0, w);
 
         for (int i = 0; i < 4; i++)
@@ -50,28 +55,29 @@ private:
             SwerveModuleState module_state = SwerveModuleState();
             module_state.set__angle(module_angle.angle);
             module_state.set__velocity(module_vector.magnitude());
-            this->swerve_module_states[i] = module_state;
+            this->desired_module_states[i] = module_state;
         }
 
         SwerveModuleStateArr module_states_msg = SwerveModuleStateArr();
-        module_states_msg.set__states(this->swerve_module_states);
+        module_states_msg.set__states(this->desired_module_states);
         this->module_states_publisher->publish(module_states_msg);
     }
 
     void imu_callback(sensor_msgs::msg::Imu imu_data)
     {
-        auto imu_orientation = imu_data.orientation;
-        this->orientation.set__w(imu_orientation.w);
-        this->orientation.set__x(imu_orientation.x);
-        this->orientation.set__y(imu_orientation.y);
-        this->orientation.set__z(imu_orientation.z);
+        float w = imu_data.orientation.w;
+        float x = imu_data.orientation.x;
+        float y = imu_data.orientation.y;
+        float z = imu_data.orientation.z;
+
+        this->yaw = Rotation2d(2.0f * (w * z + x * y), w * w + x * x - y * y - z * z);
     }
 
     rclcpp::Subscription<ChassisSpeeds>::SharedPtr chassis_speeds_subscriber;
     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr imu_subscriber;
     rclcpp::Publisher<SwerveModuleStateArr>::SharedPtr module_states_publisher;
-    geometry_msgs::msg::Quaternion orientation;
-    std::vector<SwerveModuleState> swerve_module_states;
+    Rotation2d yaw;
+    std::vector<SwerveModuleState> desired_module_states;
 };
 
 int main(int argc, char *argv[])

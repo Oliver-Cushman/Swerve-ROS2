@@ -4,20 +4,48 @@
 
 namespace geometry_util
 {
+
+    inline double angle_modulus(float angle)
+    {
+        angle = std::fmod(angle, 2 * M_PI);
+        return angle < 0 ? angle + 2 * M_PI : angle;
+    }
+
     struct Translation2d
     {
         float x;
         float y;
 
-        constexpr Translation2d(float _x, float _y) : x(_x), y(_y) {}
+        Translation2d(float _x, float _y) : x(_x), y(_y) {}
     };
 
     struct Rotation2d
     {
         float angle;
 
-        constexpr Rotation2d(float _angle) : angle(_angle) {}
-        constexpr Rotation2d(float y, float x) : angle(std::atan2(y, x)) {}
+        Rotation2d(float _angle) : angle(angle_modulus(_angle)) {}
+        Rotation2d() : Rotation2d(0) {}
+        Rotation2d(float y, float x) : Rotation2d(std::atan2(y, x)) {}
+
+        Rotation2d operator+(const Rotation2d &rotation) const
+        {
+            return Rotation2d(angle + rotation.angle);
+        }
+
+        Rotation2d operator-(const Rotation2d &rotation) const
+        {
+            return Rotation2d(angle - rotation.angle);
+        }
+
+        Rotation2d operator*(const float scalar) const
+        {
+            return Rotation2d(angle * scalar);
+        }
+
+        Rotation2d operator/(const float scalar) const
+        {
+            return Rotation2d(angle / scalar);
+        }
 
         float get_radians() const
         {
@@ -38,6 +66,7 @@ namespace geometry_util
         {
             return std::cos(angle);
         }
+
     };
 
     struct Pose2d
@@ -45,7 +74,7 @@ namespace geometry_util
         const Translation2d translation;
         const Rotation2d rotation;
 
-        constexpr Pose2d(Translation2d _translation, Rotation2d _rotation) : translation(_translation), rotation(_rotation) {}
+        Pose2d(Translation2d _translation, Rotation2d _rotation) : translation(_translation), rotation(_rotation) {}
     };
 
     struct Vector2d
@@ -53,7 +82,7 @@ namespace geometry_util
         float x;
         float y;
 
-        constexpr Vector2d(float _x, float _y) : x(_x), y(_y) {}
+        Vector2d(float _x, float _y) : x(_x), y(_y) {}
 
         float magnitude() const
         {
@@ -95,6 +124,11 @@ namespace geometry_util
         {
             return Rotation2d(y, x);
         }
+
+        Vector2d rotate_by(const Rotation2d &angle) const
+        {
+            return Vector2d(x * angle.get_cos() - y * angle.get_sin(), x * angle.get_sin() + y * angle.get_cos());
+        }
     };
 
     struct Vector3d
@@ -103,7 +137,7 @@ namespace geometry_util
         float y;
         float z;
 
-        constexpr Vector3d(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}
+        Vector3d(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}
 
         float magnitude() const
         {
