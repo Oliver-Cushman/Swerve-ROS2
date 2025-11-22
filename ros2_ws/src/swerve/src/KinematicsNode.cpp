@@ -48,7 +48,7 @@ private:
         for (int i = 0; i < 4; i++)
         {
             Translation2d module_translation = constants::Swerve::SWERVE_MOD_TRANSLATIONS[i];
-            Vector3d r = Vector3d(module_translation.x, module_translation.y, 0);
+            Vector3d r{module_translation.x, module_translation.y, 0};
             Vector3d angular = r.cross(w_vector);
             Vector2d module_vector = lv + Vector2d(angular.x, angular.y);
             Rotation2d module_angle = module_vector.angle();

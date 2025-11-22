@@ -1,0 +1,573 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+    <model name="chassis">
+        <link name="base_link">
+            <collision name="base_collision">
+                <geometry>
+                    <box><size>0.65 0.65 0.075</size></box>
+                </geometry>
+            </collision>
+            <visual name="base_visual">
+                <geometry>
+                    <box><size>0.65 0.65 0.075</size></box>
+                </geometry>
+                <material>
+                    <ambient>0.1 0.3 0.8 1</ambient>
+                    <diffuse>0.2 0.4 0.9 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>60</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>60</iyy>
+                    <iyz>0</iyz>
+                    <izz>60</izz>
+                </inertia>
+                <mass>60</mass>
+            </inertial>
+        </link>
+        <!-- Front Left -->
+        <link name="fl_base">
+            <pose>0.2921 0.2921 -0.04 0 0 0</pose>
+            <collision name="fl_base_collision">
+                <geometry>
+                    <cylinder>
+                        <radius>0.04</radius>
+                        <length>0.005</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name="fl_base_visual">
+                <geometry>
+                    <cylinder>
+                        <radius>0.04</radius>
+                        <length>0.005</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <link name="fl_axle">
+            <pose>0.2921 0.310225 -0.0685 0 0 0</pose>
+            <collision name="fl_axle_collision">
+                <geometry>
+                    <box><size>0.0125 0.00625 0.052</size></box>
+                </geometry>
+            </collision>
+            <visual name="fl_axle_visual">
+                <geometry>
+                    <box><size>0.0125 0.00625 0.052</size></box>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <link name="fl_wheel">
+            <pose>0.2921 0.2921 -0.0945 1.5707 0 0</pose>
+            <collision name="fl_wheel_collision">
+                <geometry>
+                    <cylinder>
+                        <radius>0.0508</radius>
+                        <length>0.03</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name="fl_wheel_visual">
+                <geometry>
+                    <cylinder>
+                        <radius>0.0508</radius>
+                        <length>0.03</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <joint name="fl_steer_joint" type="revolute">
+            <parent>base_link</parent>
+            <child>fl_base</child>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+        </joint>
+        <joint name="fl_axle_joint" type="fixed">
+            <parent>fl_base</parent>
+            <child>fl_axle</child>
+        </joint>
+        <joint name="fl_wheel_joint" type="revolute">
+            <parent>fl_axle</parent>
+            <child>fl_wheel</child>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+        </joint>
+        <!-- Front Right -->
+        <link name="fr_base">
+            <pose>0.2921 -0.2921 -0.04 0 0 0</pose>
+            <collision name="fr_base_collision">
+                <geometry>
+                    <cylinder>
+                        <radius>0.04</radius>
+                        <length>0.005</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name="fr_base_visual">
+                <geometry>
+                    <cylinder>
+                        <radius>0.04</radius>
+                        <length>0.005</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <link name="fr_axle">
+            <pose>0.2921 -0.273975 -0.0685 0 0 0</pose>
+            <collision name="fr_axle_collision">
+                <geometry>
+                    <box><size>0.0125 0.00625 0.052</size></box>
+                </geometry>
+            </collision>
+            <visual name="fr_axle_visual">
+                <geometry>
+                    <box><size>0.0125 0.00625 0.052</size></box>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <link name="fr_wheel">
+            <pose>0.2921 -0.2921 -0.0945 1.5707 0 0</pose>
+            <collision name="fr_wheel_collision">
+                <geometry>
+                    <cylinder>
+                        <radius>0.0508</radius>
+                        <length>0.03</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name="fr_wheel_visual">
+                <geometry>
+                    <cylinder>
+                        <radius>0.0508</radius>
+                        <length>0.03</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <joint name="fr_steer_joint" type="revolute">
+            <parent>base_link</parent>
+            <child>fr_base</child>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+        </joint>
+        <joint name="fr_axle_joint" type="fixed">
+            <parent>fr_base</parent>
+            <child>fr_axle</child>
+        </joint>
+        <joint name="fr_wheel_joint" type="revolute">
+            <parent>fr_axle</parent>
+            <child>fr_wheel</child>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+        </joint>
+        <!-- Back Left -->
+        <link name="bl_base">
+            <pose>-0.2921 0.2921 -0.04 0 0 0</pose>
+            <collision name="bl_base_collision">
+                <geometry>
+                    <cylinder>
+                        <radius>0.04</radius>
+                        <length>0.005</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name="bl_base_visual">
+                <geometry>
+                    <cylinder>
+                        <radius>0.04</radius>
+                        <length>0.005</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <link name="bl_axle">
+            <pose>-0.2921 0.310225 -0.0685 0 0 0</pose>
+            <collision name="bl_axle_collision">
+                <geometry>
+                    <box><size>0.0125 0.00625 0.052</size></box>
+                </geometry>
+            </collision>
+            <visual name="bl_axle_visual">
+                <geometry>
+                    <box><size>0.0125 0.00625 0.052</size></box>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <link name="bl_wheel">
+            <pose>-0.2921 0.2921 -0.0945 1.5707 0 0</pose>
+            <collision name="bl_wheel_collision">
+                <geometry>
+                    <cylinder>
+                        <radius>0.0508</radius>
+                        <length>0.03</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name="bl_wheel_visual">
+                <geometry>
+                    <cylinder>
+                        <radius>0.0508</radius>
+                        <length>0.03</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <joint name="bl_steer_joint" type="revolute">
+            <parent>base_link</parent>
+            <child>bl_base</child>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+        </joint>
+        <joint name="bl_axle_joint" type="fixed">
+            <parent>bl_base</parent>
+            <child>bl_axle</child>
+        </joint>
+        <joint name="bl_wheel_joint" type="revolute">
+            <parent>bl_axle</parent>
+            <child>bl_wheel</child>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+        </joint>
+        <!-- Back Right -->
+        <link name="br_base">
+            <pose>-0.2921 -0.2921 -0.04 0 0 0</pose>
+            <collision name="br_base_collision">
+                <geometry>
+                    <cylinder>
+                        <radius>0.04</radius>
+                        <length>0.005</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name="br_base_visual">
+                <geometry>
+                    <cylinder>
+                        <radius>0.04</radius>
+                        <length>0.005</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <link name="br_axle">
+            <pose>-0.2921 -0.273975 -0.0685 0 0 0</pose>
+            <collision name="br_axle_collision">
+                <geometry>
+                    <box><size>0.0125 0.00625 0.052</size></box>
+                </geometry>
+            </collision>
+            <visual name="br_axle_visual">
+                <geometry>
+                    <box><size>0.0125 0.00625 0.052</size></box>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <link name="br_wheel">
+            <pose>-0.2921 -0.2921 -0.0945 1.5707 0 0</pose>
+            <collision name="br_wheel_collision">
+                <geometry>
+                    <cylinder>
+                        <radius>0.0508</radius>
+                        <length>0.03</length>
+                    </cylinder>
+                </geometry>
+            </collision>
+            <visual name="br_wheel_visual">
+                <geometry>
+                    <cylinder>
+                        <radius>0.0508</radius>
+                        <length>0.03</length>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <ambient>0.8 0.3 0.1 1</ambient>
+                    <diffuse>0.9 0.4 0.2 1</diffuse>
+                </material>
+            </visual>
+            <inertial>
+                <inertia>
+                    <ixx>0.032</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.032</iyy>
+                    <iyz>0</iyz>
+                    <izz>0.00012</izz>
+                </inertia>
+                <mass>0.6</mass>
+            </inertial>
+        </link>
+        <joint name="br_steer_joint" type="revolute">
+            <parent>base_link</parent>
+            <child>br_base</child>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+        </joint>
+        <joint name="br_axle_joint" type="fixed">
+            <parent>br_base</parent>
+            <child>br_axle</child>
+        </joint>
+        <joint name="br_wheel_joint" type="revolute">
+            <parent>br_axle</parent>
+            <child>br_wheel</child>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+        </joint>
+        <plugin
+            filename="gz-sim-joint-controller-system"
+            name="gz::sim::systems::JointController">
+            <joint_name>fl_wheel_joint</joint_name>
+            <topic_name>swerve/sim/desired_module_states/fl/cmd_vel</topic_name>
+            <initial_velocity>0</initial_velocity>
+        </plugin>
+        <plugin
+            filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+            <joint_name>fl_steer_joint</joint_name>
+            <topic>swerve/sim/desired_module_states/fl/cmd_pos</topic>
+            <use_velocity_commands>true</use_velocity_commands>
+            <cmd_max>10</cmd_max>
+        </plugin>
+        <plugin
+            filename="gz-sim-joint-state-publisher-system"
+            name="gz::sim::systems::JointStatePublisher">
+            <joint_name>fl_steer_joint</joint_name>
+        </plugin>
+        <plugin
+            filename="gz-sim-joint-controller-system"
+            name="gz::sim::systems::JointController">
+            <joint_name>fr_wheel_joint</joint_name>
+            <topic_name>swerve/sim/desired_module_states/fr/cmd_vel</topic_name>
+            <initial_velocity>0</initial_velocity>
+        </plugin>
+        <!-- <plugin
+            filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+            <joint_name>fr_steer_joint</joint_name>
+            <topic>swerve/sim/desired_module_states/fr/cmd_pos</topic>
+            <p_gain>1</p_gain>
+            <i_gain>0.1</i_gain>
+            <d_gain>0.01</d_gain>
+            <i_max>1</i_max>
+            <i_min>-1</i_min>
+            <cmd_max>1000</cmd_max>
+            <cmd_min>-1000</cmd_min>
+        </plugin> -->
+        <plugin
+            filename="gz-sim-joint-controller-system"
+            name="gz::sim::systems::JointController">
+            <joint_name>bl_wheel_joint</joint_name>
+            <topic_name>swerve/sim/desired_module_states/bl/cmd_vel</topic_name>
+            <initial_velocity>0</initial_velocity>
+        </plugin>
+        <!-- <plugin
+            filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+            <joint_name>bl_steer_joint</joint_name>
+            <topic>swerve/sim/desired_module_states/bl/cmd_pos</topic>
+            <p_gain>1</p_gain>
+            <i_gain>0.1</i_gain>
+            <d_gain>0.01</d_gain>
+            <i_max>1</i_max>
+            <i_min>-1</i_min>
+            <cmd_max>1000</cmd_max>
+            <cmd_min>-1000</cmd_min>
+        </plugin> -->
+        <plugin
+            filename="gz-sim-joint-controller-system"
+            name="gz::sim::systems::JointController">
+            <joint_name>br_wheel_joint</joint_name>
+            <topic_name>swerve/sim/desired_module_states/br/cmd_vel</topic_name>
+            <initial_velocity>0</initial_velocity>
+        </plugin>
+        <!-- <plugin
+            filename="gz-sim-joint-position-controller-system"
+            name="gz::sim::systems::JointPositionController">
+            <joint_name>br_steer_joint</joint_name>
+            <topic>swerve/sim/desired_module_states/br/cmd_pos</topic>
+            <p_gain>1</p_gain>
+            <i_gain>0.1</i_gain>
+            <d_gain>0.01</d_gain>
+            <i_max>1</i_max>
+            <i_min>-1</i_min>
+            <cmd_max>1000</cmd_max>
+            <cmd_min>-1000</cmd_min>
+        </plugin> -->
+        
+    </model>
+</sdf>
